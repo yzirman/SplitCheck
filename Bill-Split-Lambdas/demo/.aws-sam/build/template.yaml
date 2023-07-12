@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'demo
+
+  Sample SAM Template for demo
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+    MemorySize: 128
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: HelloWorldFunction
+      Handler: helloworld.StreamLambdaHandler::handleRequest
+      Runtime: java11
+      Policies: AWSLambdaBasicExecutionRole
+      Architectures:
+      - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        CreateOrder:
+          Type: Api
+          Properties:
+            Path: /table
+            Method: post
+        GetOrder:
+          Type: Api
+          Properties:
+            Path: /table/{tableID}
+            Method: get
+    Metadata:
+      SamResourceId: HelloWorldFunction
+Outputs:
+  CreateOrderApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/table
+  GetOrderApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/table/{tableID}
+  HelloWorldFunction:
+    Description: Hello World Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunction
+      - Arn
+  HelloWorldFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunctionRole
+      - Arn

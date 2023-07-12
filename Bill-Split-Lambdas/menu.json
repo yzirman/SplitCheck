@@ -1,0 +1,28 @@
+{
+    "menu": [
+        {
+            "Name": "Steak",
+            "Price": 46.23
+        },
+        {
+            "Name": "Coke",
+            "Price": 3.0
+        },
+        {
+            "Name": "Pasta",
+            "Price": 12.0
+        },
+        {
+            "Name": "Pizza",
+            "Price": 15.99
+        },
+        {
+            "Name": "Whiskey Sour",
+            "Price": 8.0
+        },
+        {
+            "Name": "Chicken",
+            "Price": 18.0
+        }
+    ]
+}
